@@ -1,0 +1,8 @@
+# request
+string feature
+string feature_id
+---
+# response
+bool detected
+string message
+geometry_msgs/Point position
