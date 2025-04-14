@@ -1,0 +1,56 @@
+feature_frames:
+  - feature: start_frame
+    position:
+      x: -0.00788284
+      y: 0.500008
+      z: 0.0185045
+  - feature: corner_1
+    position:
+      x: 1.13416
+      y: 0.827322
+      z: 0.18916
+  - feature: corner_2
+    position:
+      x: 1.13353
+      y: -0.988603
+      z: 0.188825
+  - feature: corner_3
+    position:
+      x: -0.931802
+      y: -0.988407
+      z: 0.188589
+  - feature: corner_4
+    position:
+      x: -0.929655
+      y: 0.827381
+      z: 0.188585
+  - feature: obstacle_1
+    position:
+      x: 0.506887
+      y: 0.00680768
+      z: 0.189924
+  - feature: obstacle_2
+    position:
+      x: 0.503097
+      y: -0.232195
+      z: 0.189905
+  - feature: obstacle_3
+    position:
+      x: 0.00140232
+      y: -0.0638271
+      z: 0.189849
+  - feature: obstacle_4
+    position:
+      x: -0.0042731
+      y: -0.161016
+      z: 0.189784
+  - feature: obstacle_5
+    position:
+      x: -0.266817
+      y: -0.0531516
+      z: 0.189904
+  - feature: obstacle_6
+    position:
+      x: -0.26615
+      y: -0.198596
+      z: 0.190214

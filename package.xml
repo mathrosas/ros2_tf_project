@@ -19,6 +19,8 @@
   <depend>launch_yaml</depend>
   <depend>std_msgs</depend>
   <depend>yaml-cpp</depend>
+  <depend>libyaml-cpp-dev</depend>
+  <depend>rcpputils</depend>
   <depend>rosidl_default_runtime</depend>
   <depend>rosidl_default_generators</depend>
 

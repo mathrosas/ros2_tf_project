@@ -15,6 +15,8 @@ find_package(geometry_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package(rcpputils REQUIRED)
+
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/FeatureDetection.srv"
@@ -45,6 +47,7 @@ ament_target_dependencies(feature_detection_service_server
   visualization_msgs
   rosidl_default_runtime
   yaml-cpp
+  rcpputils
 )
 
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
