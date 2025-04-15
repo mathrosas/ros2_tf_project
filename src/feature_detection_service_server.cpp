@@ -1,6 +1,7 @@
 #include "ros2_tf_project/srv/feature_detection.hpp"
 #include <Eigen/Dense>
 #include <algorithm>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <filesystem>
 #include <fstream>
 #include <geometry_msgs/msg/point.hpp>
@@ -77,26 +78,24 @@ private:
   std::vector<FeatureFrame> feature_frames_;
 
   void saveFramesToYAML() {
-    const std::string filename =
-        "src/ros2_tf_project/frames/static_frames_sim.yaml";
+    // Use ament_index to locate the package share path
+    const std::string package_path =
+        ament_index_cpp::get_package_share_directory("ros2_tf_project");
+    const std::string frames_dir = package_path + "/frames";
+    const std::string filename = frames_dir + "/static_frames_sim.yaml";
 
-    // Create frames directory if it doesn't exist
-    std::filesystem::path dir_path("src/ros2_tf_project/frames");
+    std::filesystem::path dir_path(frames_dir);
     if (!std::filesystem::exists(dir_path)) {
-      std::filesystem::create_directory(dir_path);
+      std::filesystem::create_directories(dir_path);
     }
 
-    // Open file for writing
     std::ofstream file(filename);
     if (!file.is_open()) {
       RCLCPP_ERROR(this->get_logger(), "Failed to open YAML file for writing");
       return;
     }
 
-    // Write YAML header
     file << "feature_frames:\n";
-
-    // Write each feature frame
     for (const auto &frame : feature_frames_) {
       file << "  - feature: " << frame.id << "\n";
       file << "    position:\n";
