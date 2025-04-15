@@ -1,0 +1,7 @@
+# request
+bool start
+bool clockwise
+---
+# response
+bool completed
+string message

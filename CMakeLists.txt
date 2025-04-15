@@ -16,10 +16,12 @@ find_package(visualization_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(rcpputils REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/FeatureDetection.srv"
+  "srv/SimpleTrajectory.srv"
   DEPENDENCIES geometry_msgs
 )
 
@@ -50,11 +52,23 @@ ament_target_dependencies(feature_detection_service_server
   rcpputils
 )
 
+add_executable(simple_trajectory_service_server src/simple_trajectory_service_server.cpp)
+ament_target_dependencies(simple_trajectory_service_server
+  rclcpp
+  tf2_ros
+  geometry_msgs
+  rosidl_default_runtime
+  yaml-cpp
+  ament_index_cpp
+)
+
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
-target_link_libraries(feature_detection_service_server ${cpp_typesupport_target})
+target_link_libraries(feature_detection_service_server ${cpp_typesupport_target} yaml-cpp)
+target_link_libraries(simple_trajectory_service_server ${cpp_typesupport_target} yaml-cpp)
 
 install(TARGETS
   feature_detection_service_server
+  simple_trajectory_service_server
   DESTINATION lib/${PROJECT_NAME}
 )
 
