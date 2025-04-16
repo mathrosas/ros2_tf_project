@@ -1,0 +1,11 @@
+# goal
+bool start
+bool clockwise
+---
+# result
+bool completed
+string message
+float32 total_distance
+---
+# feedback
+float32 current_distance
