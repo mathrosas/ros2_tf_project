@@ -12,6 +12,7 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(gazebo_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(yaml-cpp REQUIRED)
@@ -22,6 +23,7 @@ find_package(ament_index_cpp REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/FeatureDetection.srv"
   "srv/SimpleTrajectory.srv"
+  "action/SimpleNavigation.action"
   DEPENDENCIES geometry_msgs
 )
 
@@ -56,26 +58,41 @@ add_executable(simple_trajectory_service_server src/simple_trajectory_service_se
 ament_target_dependencies(simple_trajectory_service_server
   rclcpp
   tf2_ros
+  tf2_geometry_msgs
   geometry_msgs
   rosidl_default_runtime
   yaml-cpp
   ament_index_cpp
 )
 
+add_executable(simple_navigation_action_server src/simple_navigation_action_server.cpp)
+ament_target_dependencies(simple_navigation_action_server
+  rclcpp
+  rclcpp_action
+  tf2_ros
+  tf2_geometry_msgs
+  geometry_msgs
+  gazebo_msgs
+  rosidl_default_runtime
+)
+
 rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} "rosidl_typesupport_cpp")
 target_link_libraries(feature_detection_service_server ${cpp_typesupport_target} yaml-cpp)
 target_link_libraries(simple_trajectory_service_server ${cpp_typesupport_target} yaml-cpp)
+target_link_libraries(simple_navigation_action_server ${cpp_typesupport_target})
 
 install(TARGETS
   feature_detection_service_server
   simple_trajectory_service_server
+  simple_navigation_action_server
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY
+  action
+  frames
   launch
   rviz
-  frames
   srv
   DESTINATION share/${PROJECT_NAME}
 )

@@ -47,7 +47,8 @@ private:
 
   bool is_moving_ = false;
   double current_angle_ = 0.0;
-  double angular_step_ = 0.1;
+  double initial_angle_ = 0.0;
+  double angular_step_ = 0.01;
 
   void loadStaticFrames() {
     const std::string package_path =
@@ -163,7 +164,8 @@ private:
       RCLCPP_INFO(this->get_logger(), "Starting %s trajectory",
                   req->clockwise ? "clockwise" : "counter-clockwise");
 
-      current_angle_ = 0.0;
+      initial_angle_ = M_PI / 2;
+      current_angle_ = initial_angle_;
       is_moving_ = true;
 
       bool clockwise = req->clockwise;
@@ -183,7 +185,7 @@ private:
     double direction = clockwise ? -1.0 : 1.0;
     current_angle_ += angular_step_ * direction;
 
-    if (std::abs(current_angle_) >= 2 * M_PI) {
+    if (std::abs(current_angle_ - initial_angle_) >= 2 * M_PI) {
       RCLCPP_INFO(this->get_logger(), "Trajectory completed");
       is_moving_ = false;
       update_timer_->cancel();
